@@ -4,3 +4,5 @@ Also:
   ** Line 45: Should contain the URL of where the Gwava part will be deployed. It is already configured for the test instances and so is the war file.
   ** Line 88: Keystore details go at line.
 
+Make sure the version numbers are correct: in web-app/index.html, VERSION.txt, and build.xml
+  

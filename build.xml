@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- This is version 16.1 -->
+<!-- This is version 16.2-SNAPSHOT -->
 
 <project name="ManhattanViz" default="run" basedir=".">
     <description>
@@ -44,7 +44,7 @@
     <property name="project.version"           value="2.1g" />
     <property name="webstart.name"             value="gwava"/>
 
-    <property name="webstart.root"             value="http://75.124.74.46:5080/gwava http://75.124.74.46:5880/gwava http://amrl2lp3fwfd58:10080/ http://75.124.74.46 http://AMRL2LP3FWFD58:10080/gwava http://clinux22.pfizer.com http://amre1al336.pcld.pfizer.com:8080/pfizerWebstart http://amrndhl693.pfizer.com http://amrndhl1040.pfizer.com:10080/pfizerWebstart http://amrndhl1038.pfizer.com:8000/gwava http://amrndhl1040.pfizer.com:8000/gwava /"/>
+    <property name="webstart.root"             value="http://localhost:8080/gwava http://localhost:8880/gwava http://amrl2lp3fwfd58:10080/ http://75.124.74.46 http://AMRL2LP3FWFD58:10080/gwava http://clinux22.pfizer.com http://amre1al336.pcld.pfizer.com:8080/pfizerWebstart http://amrndhl693.pfizer.com http://amrndhl1040.pfizer.com:10080/pfizerWebstart http://amrndhl1038.pfizer.com:8000/gwava http://amrndhl1040.pfizer.com:8000/gwava /"/>
 
 
     <!-- project modules   -->
@@ -76,7 +76,7 @@
     <property name="gwava.build.dist.dir"      location="${gwava.build.dir}/dist"/>
     <property name="gwava.build.dist.lib.dir"  location="${gwava.build.dist.dir}/lib"/>
     <property name="gwava.keystore.dir"        location="${gwava.build.dir}/keystore" />
-	
+
 
     <!-- test reports -->
     <property name="gwava.test.report"         location="${gwava.build.dir}/reports"/>
@@ -86,7 +86,7 @@
     <property name="compile.optimize"          value="off"/>
     <property name="compile.deprecation"       value="on"/>
     <property name="compile.verbose"           value="off"/>
-    
+
     <property name="keystore"                  location="${gwava.keystore.dir}"/>
     <property name="keystore.alias"            value="transmartKeyStore"/>
     <property name="keystore.password"         value="transmartKey"/>
@@ -138,8 +138,8 @@
             <touch file="${temp.file}/META-INF/MANIFEST.MF"/>
 
             <jar destfile="@{jar}"
-                 basedir="${temp.file}" 
-                 includes="**" 
+                 basedir="${temp.file}"
+                 includes="**"
                  manifest="${temp.file}/META-INF/MANIFEST.MF"/>
 
             <delete dir="${temp.file}" failonerror="true"/>
@@ -168,8 +168,8 @@
             <touch file="${temp.file}/META-INF/MANIFEST.MF"/>
 
             <jar destfile="@{jar}"
-                 basedir="${temp.file}" 
-                 includes="**"> 
+                 basedir="${temp.file}"
+                 includes="**">
                 <!--manifest="${temp.file}/META-INF/MANIFEST.MF">-->
                 <manifest>
                     <attribute name="Permissions" value="all-permissions"/>
@@ -262,7 +262,7 @@
                 <attribute name="Class-Path" value="gwava.classpath"/>-->
             </manifest>
         </jar>
-	
+
         <copy todir="${gwava.build.dist.lib.dir}">
             <fileset dir="${gwava.lib.dir}" includes="*.jar" />
         </copy>
@@ -286,11 +286,11 @@
                 <param name="O"  value="Translational Bioinformatics"/>
                 <param name="L"  value="Cambridge"/>
                 <param name="ST"  value="MA"/>
-                <param name="C"  value="US"/>   
+                <param name="C"  value="US"/>
             </dname>
         </genkey>
     </target>
-    
+
     <target name="signJar" depends="addManifestToLib, keytool" >
         <signjar keystore="${keystore}" alias="${keystore.alias}" storepass="${keystore.password}" lazy="true" verbose="false">    <!-- from tianhong -->
             <path>
@@ -299,8 +299,8 @@
             </path>
         </signjar>
     </target>
-    
-    
+
+
     <!--==================================================================-->
     <!--===================== create war file ============================-->
     <!--==================================================================-->
@@ -310,11 +310,11 @@
         </copy>
          <copy file="${gwava.web-app.dir}/index.html" todir="${gwava.build.dir}/dist"/>
     </target>
-    
+
     <target name="justwar" depends="signJar,copyAdditionalWarContent">
         <jar jarfile="${gwava.dist.dir}/${webstart.name}.war" basedir="${gwava.build.dir}" />
     </target>
-    
+
     <target name="transmartwar" depends="signJar,copyAdditionalWarContent">
         <jar jarfile="${gwava.dist.dir}/${webstart.name}.war" basedir="${gwava.build.dir}/dist" />
     </target>
@@ -342,7 +342,7 @@
         <echo message="addManifestToLib operating on dir ${gwava.build.dist.lib.dir}" />
         <for param="file">
             <path>
-                <fileset dir="${gwava.build.dist.lib.dir}" includes="**/*.jar"/> 
+                <fileset dir="${gwava.build.dist.lib.dir}" includes="**/*.jar"/>
             </path>
             <sequential>
                 <addManifestToLibMacro jar="@{file}"/>
